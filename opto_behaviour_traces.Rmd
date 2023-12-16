@@ -1,0 +1,83 @@
+---
+title: "R Notebook"
+output:
+  html_document:
+    df_print: paged
+---
+
+
+```{r}
+library(feather)
+library(data.table)
+library(tidyverse)
+
+```
+
+```{r}
+data_lido <- data.table(arrow::read_feather('/Users/Oliver/Google Drive/AG Remy/Petra/VTAtoMSDBopto/lidocaine.feather'))
+data <- data.table(arrow::read_feather('/Users/Oliver/Google Drive/AG Remy/Petra/VTAtoMSDBopto/uncued.feather'))
+data$Group = NA
+data$Group[data$Mouse %in% c('212',	'219', '220',	'221',	'222',	'224')] <- 'ChR'
+data <- data[is.na(Group), Group := 'EYFP']
+data[data$opto_freq==10]$opto_freq <- 9
+data[data$opto_freq_sharp==10]$opto_freq_sharp <- 9
+data$experiment <- paste0(data$Trial, '_', data$Date, '_', data$Mouse)
+```
+
+
+Figure 2F: 
+```{r fig.width=8, fig.height=3,echo=FALSE}
+face_opto <- data.frame(data_lido$onset_opto_loco_time, data_lido$OFmag_Nose, 
+                        data_lido$OFmag_Whiskerpad, data_lido$lidocaine, data_lido$velocity/5,
+                        data_lido$opto_freq, data_lido$Mouse, data_lido$Group)
+face_opto <- face_opto[complete.cases(face_opto), ]
+face_opto <- gather(face_opto, behaviour, value, -c(data_lido.onset_opto_loco_time, data_lido.lidocaine, data_lido.opto_freq, data_lido.Mouse, data_lido.Group))
+face_opto <- subset(face_opto, data_lido.lidocaine!='inj')
+
+p1 <- ggplot(data = face_opto[(face_opto$data_lido.Group=='ChR')&
+                                (face_opto$data_lido.lidocaine=='lidocaine')&
+                                (face_opto$data_lido.opto_freq==9), ], 
+       aes(x = data_lido.onset_opto_loco_time, y = value, group=behaviour)) +
+  stat_summary(aes(colour=behaviour),
+              fun = mean,
+               geom = "line",
+               size = 1) +
+  stat_summary(aes(fill=behaviour),
+               fun.data = mean_se,
+               geom = "ribbon",
+               alpha = 0.4) +
+  geom_vline(xintercept=c(0, 200)) +
+  xlim(-20, 40) +
+  theme_classic()
+
+p1
+
+```
+
+Figure 2D: Z-score magnitude of nose (red) and whisker pad (green) movement 
+aligned to the onset of spontaneous locomotor episodes (blue) in MSDBglu-VTA:ChR mice 
+before (left, blue shaded) and after (right, orange shaded) lidocaine injection.
+```{r}
+face_loco <- data.frame(data$OFmag_Nose, 
+                        data$OFmag_Whiskerpad, data$Group, data$velocity/3,
+                        data$onset_longloco_noopto_time)
+face_loco <- face_loco[complete.cases(face_loco), ]
+face_loco <- gather(face_loco, behaviour, value, -c(data.onset_longloco_noopto_time, data.Group))
+
+p2 <- ggplot(data = face_loco[(face_loco$data.Group=='ChR'), ], 
+       aes(x = data.onset_longloco_noopto_time, y = value, group=behaviour)) +
+  stat_summary(aes(colour=behaviour),
+              fun = mean,
+               geom = "line",
+               size = 1) +
+  stat_summary(aes(fill=behaviour),
+               fun.data = mean_se,
+               geom = "ribbon",
+               alpha = 0.4) +
+  geom_vline(xintercept=c(0, 200)) +
+  xlim(-20, 40) +
+  theme_classic()
+
+p2
+```
+
