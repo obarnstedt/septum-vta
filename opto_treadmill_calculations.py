@@ -1,8 +1,8 @@
 import os
 import sys
 sys.path.append('path')
-import DDImport
-import Treadmill_Opto_Functions as PM_Opto_functions
+from invitro_ephys import DDimport as DDImport
+import opto_treadmill_functions as PM_Opto_functions
 import pandas as pd
 
 #define directory
