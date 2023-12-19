@@ -2,7 +2,7 @@
 """
 Created on Tue Dec 19 15:01:58 2023
 
-@author: Petra
+@author: Kevin Luxem and Petra Mocellin
 """
 import os
 simpleLFP_directory = "/path/to/simpleLFP/"
