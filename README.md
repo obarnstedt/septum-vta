@@ -9,4 +9,5 @@ All data required to reproduce the figures of the accompanying manuscript are av
 * opto_EPM.ipynb processes elevated plus maze data for Figure 5G-J, written by Oliver Barnstedt and Petra Mocellin.
 * invitro_ephys contains all code to process patch-clamp whole-cell data for Figure S9, written by Dennis Dalügge.
 * Figures 3C-D, S6B were generated using VAME (https://github.com/LINCellularNeuroscience/VAME), adjusted for this data by Kevin Luxem.
+* LFP data were processed using code from https://github.com/CogEmLab/lfp_mocellin_etal, written by Pavol Bauer and Sanja Mikulovic.
 * Freely moving data were processed using DeepLabCut by Mathis et al. (2018): https://github.com/DeepLabCut/DeepLabCut
