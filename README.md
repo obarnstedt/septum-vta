@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10406018.svg)](https://doi.org/10.5281/zenodo.10406018)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.10406017.svg)](https://doi.org/10.5281/zenodo.10406017)
 
 ## Software and algorithms accompanying Mocellin et al. (2024)
 All data required to reproduce the figures of the accompanying manuscript are available upon request to the lead contact Stefan Remy (stefan.remy@lin-magdeburg.de).
