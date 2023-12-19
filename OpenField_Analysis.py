@@ -9,7 +9,7 @@ import scipy.ndimage as ndimage
 from matplotlib import pyplot as plt
 from math import factorial
 
-from OpenField_functions import calculate_background, get_density, calculate_approach_time, calculate_approach_pointer
+from OpenField_Functions import calculate_background, get_density, calculate_approach_time, calculate_approach_pointer
  
 def detect_objects_centers(bg, experiment):
     
